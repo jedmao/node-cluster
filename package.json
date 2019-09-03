@@ -1,0 +1,139 @@
+{
+  "name": "@jedmao/node-cluster",
+  "version": "0.0.0",
+  "description": "A Node/TypeScript starter project.",
+  "license": "MIT",
+  "repository": "jedmao/node-starter",
+  "author": "Jed Mao <jedmao@outlook.com>",
+  "keywords": [
+    "node",
+    "typescript",
+    "starter"
+  ],
+  "scripts": {
+    "prebuild": "rimraf dist",
+    "build": "tsc",
+    "test": "xo && jest --watch",
+    "precover": "rimraf coverage",
+    "cover": "xo && jest --coverage",
+    "commit": "git-cz"
+  },
+  "files": [
+    "dist"
+  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-push": "tsc --noEmit && npm run cover"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "xo --fix",
+      "prettier --write",
+      "git add"
+    ],
+    "*.{json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "xo": {
+    "envs": [
+      "jest",
+      "node"
+    ],
+    "extends": "xo-typescript",
+    "extensions": [
+      "ts"
+    ],
+    "parserOptions": {
+      "project": "./tsconfig.xo.json",
+      "sourceType": "module"
+    },
+    "prettier": true,
+    "rules": {
+      "@typescript-eslint/explicit-function-return-type": "off",
+      "@typescript-eslint/semi": "false"
+    }
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "proseWrap": "always",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "jest": {
+    "coverageDirectory": "coverage",
+    "coverageReporters": [
+      "lcov",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    },
+    "globals": {
+      "ts-jest": {
+        "diagnostics": {
+          "//": "https://github.com/kulshekhar/ts-jest/issues/748#issuecomment-423528659",
+          "ignoreCodes": [
+            151001
+          ]
+        }
+      }
+    },
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/src/$1"
+    },
+    "modulePathIgnorePatterns": [
+      "node_modules"
+    ],
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "verbose": true,
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ]
+  },
+  "dependencies": {
+    "tslib": "^1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8",
+    "@commitlint/config-conventional": "^8",
+    "@types/jest": "^24",
+    "@typescript-eslint/eslint-plugin": "^2",
+    "@typescript-eslint/parser": "^2",
+    "commitizen": "^4",
+    "cz-conventional-changelog": "^3",
+    "eslint": "^6",
+    "eslint-config-xo-typescript": "^0",
+    "husky": "^3",
+    "jest": "^24",
+    "jest-watch-typeahead": "^0",
+    "lint-staged": "^9",
+    "prettier": "^1",
+    "rimraf": "^3",
+    "ts-jest": "^24",
+    "typescript": "~3.5",
+    "xo": "^0"
+  }
+}
