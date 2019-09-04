@@ -5,14 +5,11 @@ import { cpus } from 'os'
 import chalk from 'chalk'
 import express = require('express')
 
-const numCPUs = cpus().length
-
 main()
 
 function main() {
 	if (cluster.isMaster) {
 		console.log(`Master ${process.pid} is running`)
-		console.log(`Forking ${numCPUs} workers`)
 		forkWorkers()
 	} else {
 		createServer()
@@ -48,6 +45,10 @@ function createServer() {
 }
 
 function forkWorkers() {
+	const numCPUs = cpus().length
+
+	console.log(`Forking ${numCPUs} workers`)
+
 	for (let i = 0; i < numCPUs; i++) {
 		cluster.fork()
 	}
